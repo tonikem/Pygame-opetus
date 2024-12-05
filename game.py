@@ -11,13 +11,14 @@ class Game:
 
         # Main character
         self.hero_img = pygame.image.load("assets/sprites/Hero.png").convert()
+        self.hero_img.set_colorkey((0, 0, 0))
         self.hero_pos = [0, 0]
         self.movement = [False, False]
         self.speed = 1
 
     def run(self):
         while True:
-            self.screen.fill((14, 219, 248))
+            self.screen.fill((10, 100, 100))
 
             if self.movement[0]:
                 self.hero_pos[1] += -self.speed
