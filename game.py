@@ -10,23 +10,35 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Main character
-        self.hero_img = pygame.image.load("assets/sprites/Hero.png").convert()
-        self.hero_img.set_colorkey((0, 0, 0))
-        self.hero_pos = [0, 0]
+        self.img = pygame.image.load("assets/sprites/Hero.png").convert()
+        self.img.set_colorkey((0, 0, 0))
+        self.img_pos = [100, 100]
         self.movement = [False, False]
-        self.speed = 1
+        self.speed = 2
+        self.cropped_region = (0, 20, 14, 28)
+
+        self.collision_area = pygame.Rect(50, 50, 100, 50)
 
     def run(self):
         while True:
             self.screen.fill((10, 100, 100))
 
             if self.movement[0]:
-                self.hero_pos[1] += -self.speed
+                self.img_pos[1] += -self.speed
             if self.movement[1]:
-                self.hero_pos[1] += self.speed
+                self.img_pos[1] += self.speed
 
-            cropped_region = (0, 20, 14, 28)
-            self.screen.blit(self.hero_img, self.hero_pos, cropped_region)
+            cropped_width = self.cropped_region[2]
+            cropped_height = self.cropped_region[3]
+
+            img_r = pygame.Rect(self.img_pos[0], self.img_pos[1], cropped_width, cropped_height)
+
+            if img_r.colliderect(self.collision_area):
+                pygame.draw.rect(self.screen, (0, 100, 255), self.collision_area)
+            else:
+                pygame.draw.rect(self.screen, (0, 50, 155), self.collision_area)
+
+            self.screen.blit(self.img, self.img_pos, self.cropped_region)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
