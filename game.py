@@ -1,9 +1,9 @@
 import sys
 import pygame
-from pygame.examples.scrap_clipboard import screen
 
 from scripts.entities import PhysicsEntity
 from scripts.utils import load_image, load_tile_images
+from scripts.tilemap import Tilemap
 
 
 class Game:
@@ -20,19 +20,23 @@ class Game:
         self.movement = [False, False]
         self.cropped_region = (0, 20, 14, 28)
         self.assets = {
+            'tiles': load_tile_images(),
             'player': load_image('Hero.png')
         }
         self.player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
+        self.tilemap = Tilemap(self, tile_size=16)
 
     def run(self):
         while True:
             self.display.fill((10, 100, 100))
 
+            self.tilemap.render(self.display)
+
             self.player.update((self.movement[1] - self.movement[0], 0))
             self.player.render(self.display, self.cropped_region)
 
-            # images = load_tile_images()
-            # self.display.blit(images[80], (0, 0))
+            # tile_images = load_tile_images()
+            # self.display.blit(tile_images[80], (0, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
