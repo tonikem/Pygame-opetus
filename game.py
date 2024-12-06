@@ -31,8 +31,8 @@ class Game:
             self.player.update((self.movement[1] - self.movement[0], 0))
             self.player.render(self.display, self.cropped_region)
 
-            images = load_tile_images()
-            self.display.blit(images[0], (0, 0))
+            # images = load_tile_images()
+            # self.display.blit(images[80], (0, 0))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

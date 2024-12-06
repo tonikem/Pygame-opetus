@@ -1,6 +1,6 @@
 import os, sys
 import pygame
-from PIL import Image
+from PIL import Image, ImageChops
 
 BASE_IMG_PATH = "assets/sprites/"
 
@@ -15,17 +15,17 @@ def load_image(path):
 
 def load_tile_images():
     images = []
-    img = Image.open(r"../assets/sprites/World-Tiles.png")
+    root_path = r"assets/sprites/"
+    img = Image.open(root_path + "World-Tiles.png")
+    empty_img = Image.open(root_path + "tyhjä.png")
 
     for y in range(0, 1392, 16):
         for x in range(0, 288, 16):
             cropped_img = img.crop((x, y, x + 16, y + 16))
-            cropped_img.show()
-
-    # images.append(surf)
+            diff = ImageChops.difference(cropped_img, empty_img)
+            surf = pillow_image_to_surface(cropped_img)
+            if diff.getbbox():
+                images.append(surf)
 
     return images
-
-
-load_tile_images()
 
