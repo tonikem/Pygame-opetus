@@ -39,6 +39,7 @@ class PhysicsEntity:
         self.velocity[1] = min(5, self.velocity[1] + 0.1)
 
     def render(self, surf, cropped_region):
-        surf.blit(self.game.assets['player'], self.pos, cropped_region)
+
+        surf.blit(self.game.assets['player'], self.pos)
 
 
