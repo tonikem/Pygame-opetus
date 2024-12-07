@@ -6,6 +6,7 @@ from scripts.utils import load_image, load_tile_images
 from scripts.tilemap import Tilemap
 
 TILE_SIZE = 28  # 32
+JUMP_FORCE = -3
 
 
 class Game:
@@ -60,7 +61,7 @@ class Game:
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = True
                     if event.key == pygame.K_UP:
-                        self.player.velocity[1] = -3
+                        self.player.velocity[1] = JUMP_FORCE
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
