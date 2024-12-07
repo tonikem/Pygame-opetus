@@ -5,6 +5,8 @@ from scripts.entities import PhysicsEntity
 from scripts.utils import load_image, load_tile_images
 from scripts.tilemap import Tilemap
 
+TILE_SIZE = 28  # 32
+
 
 class Game:
     def __init__(self):
@@ -25,12 +27,12 @@ class Game:
         hero = pygame.transform.scale(hero_subsurface, (14, 28))
 
         self.assets = {
-            'tiles': load_tile_images(tile_size=28),
+            'tiles': load_tile_images(tile_size=TILE_SIZE),
             'player': hero
         }
 
         self.player = PhysicsEntity(self, 'player', (270, 20), (14, 28))
-        self.tilemap = Tilemap(self, tile_size=28)
+        self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
 
     def run(self):
         while True:
