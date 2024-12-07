@@ -1,3 +1,11 @@
+
+NEIGHBOR_OFFSET = [
+    (-1,  0), (-1, -1), ( 0, -1),
+    ( 1, -1), ( 1,  0), ( 0,  0),
+    (-1,  1), ( 0,  1), ( 1,  1)
+]
+
+
 class Tilemap:
     def __init__(self, game, tile_size=16):
         self.game = game
@@ -19,4 +27,5 @@ class Tilemap:
             tile = self.tilemap[loc]
             variant = self.game.assets[tile['type']][tile['variant']]
             surf.blit(variant, (tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size))
+
 
