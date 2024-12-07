@@ -23,7 +23,7 @@ class Game:
             'tiles': load_tile_images(),
             'player': load_image('Hero.png')
         }
-        self.player = PhysicsEntity(self, 'player', (50, 50), (8, 15))
+        self.player = PhysicsEntity(self, 'player', (100, 20), (14, 28))
         self.tilemap = Tilemap(self, tile_size=16)
 
     def run(self):
@@ -32,11 +32,14 @@ class Game:
 
             self.tilemap.render(self.display)
 
-            self.player.update((self.movement[1] - self.movement[0], 0))
+            self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
             self.player.render(self.display, self.cropped_region)
 
             # tile_images = load_tile_images()
             # self.display.blit(tile_images[80], (0, 0))
+
+            # print(self.tilemap.tiles_around(self.player.pos))
+            # print(self.tilemap.physics_rects_around(self.player.pos))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
