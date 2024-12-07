@@ -22,14 +22,14 @@ class Game:
 
         loaded_hero_img = load_image('Hero.png')
         hero_subsurface = loaded_hero_img.subsurface((0, 20, 14, 28))
-        hero = pygame.transform.scale(hero_subsurface, (14, 16))
+        hero = pygame.transform.scale(hero_subsurface, (16, 28))
 
         self.assets = {
             'tiles': load_tile_images(),
             'player': hero
         }
 
-        self.player = PhysicsEntity(self, 'player', (100, 20), (16, 16))
+        self.player = PhysicsEntity(self, 'player', (100, 20), (16, 21))
         self.tilemap = Tilemap(self, tile_size=16)
 
     def run(self):
