@@ -5,7 +5,7 @@ from scripts.entities import PhysicsEntity
 from scripts.utils import load_image, load_tile_images
 from scripts.tilemap import Tilemap
 
-TILE_SIZE = 28  # 32
+TILE_SIZE = 24  # 32
 
 
 class Game:
@@ -31,7 +31,7 @@ class Game:
             'player': hero
         }
 
-        self.player = PhysicsEntity(self, 'player', (270, 20), (14, 28))
+        self.player = PhysicsEntity(self, 'player', (250, 20), (14, 28))
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
 
     def run(self):
