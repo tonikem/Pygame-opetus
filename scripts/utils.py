@@ -13,7 +13,7 @@ def load_image(path):
     img.set_colorkey((0, 0, 0))
     return img
 
-def load_tile_images():
+def load_tile_images(tile_size=16):
     images = []
     root_path = r"assets/sprites/"
     img = Image.open(root_path + "World-Tiles.png")
@@ -21,7 +21,7 @@ def load_tile_images():
 
     for y in range(0, 1392, 16):
         for x in range(0, 288, 16):
-            cropped_img = img.crop((x, y, x + 16, y + 16))
+            cropped_img = img.crop((x, y, x + 16, y + 16)).resize((28, 28))
             diff = ImageChops.difference(cropped_img, empty_img)
             surf = pillow_image_to_surface(cropped_img)
             if diff.getbbox():
