@@ -7,8 +7,8 @@ class Tilemap:
 
         _range = 10
         for i in range(_range):
-            self.tilemap[str(3 + 1) + f';{_range}'] = {'type': 'tiles', 'variant': 80, 'pos': (3 + i, 10)}
-            self.tilemap[f'{_range};' + str(5 + i)] = {'type': 'tiles', 'variant': 81, 'pos': (10, i + 5)}
+            self.tilemap[str(3 + i) + f';{_range}'] = {'type': 'tiles', 'variant': 80, 'pos': (3 + i, _range)}
+            self.tilemap[f'{_range};' + str(5 + i)] = {'type': 'tiles', 'variant': 81, 'pos': (_range, i + 5)}
 
     def render(self, surf):
         for tile in self.offgrid_tiles:
