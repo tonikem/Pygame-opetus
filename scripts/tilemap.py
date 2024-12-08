@@ -1,4 +1,5 @@
 import pygame
+from Demos.mmapfile_demo import offset
 
 NEIGHBOR_OFFSETS = [
     (-1,  0), (-1, -1), ( 0, -1),
@@ -17,7 +18,7 @@ class Tilemap:
         self.tile_size = tile_size
         self.tilemap = {}
         self.offgrid_tiles = []
-        _range = 10
+        _range = 2
         for i in range(_range):
             self.tilemap[str(3 + i) + f';{_range}'] = {'type': 'tiles', 'variant': 80, 'pos': (3 + i, _range)}
             self.tilemap[f'{_range};' + str(5 + i)] = {'type': 'tiles', 'variant': 81, 'pos': (_range, 5)}
@@ -41,14 +42,14 @@ class Tilemap:
                 rects.append(rect)
         return rects
 
-    def render(self, surf):
+    def render(self, surf, offset=(0, 0)):
         for tile in self.offgrid_tiles:
             variant = self.game.assets[tile['type']][tile['variant']]
-            surf.blit(variant, tile['pos'])
+            surf.blit(variant, (tile['pos'][0] - offset[0], tile['pos'][1] - offset[1]))
 
         for loc in self.tilemap:
             tile = self.tilemap[loc]
             variant = self.game.assets[tile['type']][tile['variant']]
-            surf.blit(variant, (tile['pos'][0] * self.tile_size, tile['pos'][1] * self.tile_size))
+            surf.blit(variant, (tile['pos'][0] * self.tile_size - offset[0], tile['pos'][1] * self.tile_size - offset[1]))
 
 

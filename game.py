@@ -1,11 +1,12 @@
 import sys
 import pygame
+from Demos.mmapfile_demo import offset
 
 from scripts.entities import PhysicsEntity
 from scripts.utils import load_image, load_tile_images
 from scripts.tilemap import Tilemap
 
-TILE_SIZE = 28  # 32
+TILE_SIZE = 28 # 32
 JUMP_FORCE = -3
 
 
@@ -21,7 +22,7 @@ class Game:
         # Main character
         self.speed = 1
         self.movement = [False, False]
-        self.cropped_region = (0, 20, 14, 28)
+        self.hero_cropped_region = (0, 20, 14, 28)
 
         loaded_hero_img = load_image('Hero.png')
         hero_subsurface = loaded_hero_img.subsurface((0, 20, 14, 28))
@@ -31,18 +32,23 @@ class Game:
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'player': hero
         }
-
-        self.player = PhysicsEntity(self, 'player', (270, 10), (14, 28))
+        self.player = PhysicsEntity(self, 'player', (100, 10), (14, 28))
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
+        self.scroll = [0, 0]
 
     def run(self):
         while True:
             self.display.fill((10, 100, 100))
 
-            self.tilemap.render(self.display)
+            # Kameran kohdistus
+            self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 30
+            self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1]) / 30
+            render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
+
+            self.tilemap.render(self.display, offset=render_scroll)
 
             self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
-            self.player.render(self.display, self.cropped_region)
+            self.player.render(self.display, offset=render_scroll)
 
             # tile_images = load_tile_images()
             # self.display.blit(tile_images[80], (0, 0))

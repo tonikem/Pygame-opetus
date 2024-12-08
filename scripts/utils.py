@@ -22,7 +22,7 @@ def load_tile_images(tile_size=16):
     for y in range(0, 1392, 16):
         for x in range(0, 288, 16):
             cropped_img = img.crop((x, y, x + 16, y + 16))
-            resized_img =cropped_img.resize((tile_size, tile_size))
+            resized_img = cropped_img.resize((tile_size, tile_size))
             diff = ImageChops.difference(resized_img, empty_img)
             surf = pillow_image_to_surface(resized_img)
             if diff.getbbox():
