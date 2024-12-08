@@ -45,6 +45,34 @@ def load_hero_idle_images():
         images.append(surf)
     return images
 
+def load_hero_run_images():
+    images = []
+    img = Image.open(BASE_IMG_PATH + "Hero.png")
+    run_images = [
+        img.crop((0, 82, 16, 112)),
+        img.crop((16, 82, 31, 112)),
+        img.crop((33, 82, 46, 112)),
+        img.crop((49, 82, 63, 112))
+    ]
+    for img in run_images:
+        surf = pillow_image_to_surface(img)
+        images.append(surf)
+    return images
+
+def load_hero_jump_images():
+    images = []
+    img = Image.open(BASE_IMG_PATH + "Hero.png")
+    run_images = [
+        img.crop((0, 52, 16, 80)),
+        img.crop((16, 52, 30, 80)),
+        img.crop((32, 52, 48, 80)),
+        img.crop((48, 52, 64, 80))
+    ]
+    for img in run_images:
+        surf = pillow_image_to_surface(img)
+        images.append(surf)
+    return images
+
 
 class Animation:
     def __init__(self, images, img_dur=5, loop=True):
