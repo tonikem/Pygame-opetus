@@ -2,7 +2,7 @@ import sys
 import pygame
 from Demos.mmapfile_demo import offset
 
-from scripts.entities import PhysicsEntity
+from scripts.entities import PhysicsEntity, Player
 from scripts.utils import *
 from scripts.tilemap import Tilemap
 
@@ -36,7 +36,9 @@ class Game:
             'player/run': Animation(load_hero_run_images(), img_dur=4),
             'player/jump': Animation(load_hero_jump_images())
         }
-        self.player = PhysicsEntity(self, 'player', (100, 10), (14, 28))
+        #print(self.assets)
+
+        self.player = Player(self, (100, 10), (14, 28))
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
         self.scroll = [0, 0]
 
