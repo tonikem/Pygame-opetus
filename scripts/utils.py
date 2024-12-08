@@ -31,14 +31,14 @@ def load_hero_idle_images():
     images = []
     img = Image.open(BASE_IMG_PATH + "Hero.png")
     idle_images = [
-        img.crop((0, 20, 14, 48)),
-        img.crop((16, 20, 30, 48)),
-        img.crop((32, 20, 46, 48)),
-        img.crop((48, 20, 62, 48)),
-        img.crop((64, 20, 78, 48)),
-        img.crop((80, 20, 94, 48)),
-        img.crop((96, 20, 110, 48)),
-        img.crop((112, 20, 126, 48))
+        img.crop((0, 17, 14, 48)),
+        img.crop((16, 17, 30, 48)),
+        img.crop((32, 17, 46, 48)),
+        img.crop((48, 17, 62, 48)),
+        img.crop((64, 17, 78, 48)),
+        img.crop((80, 17, 94, 48)),
+        img.crop((96, 17, 110, 48)),
+        img.crop((112, 17, 126, 48))
     ]
     for img in idle_images:
         surf = pillow_image_to_surface(img)
@@ -49,10 +49,10 @@ def load_hero_run_images():
     images = []
     img = Image.open(BASE_IMG_PATH + "Hero.png")
     run_images = [
-        img.crop((0, 82, 16, 112)),
-        img.crop((16, 82, 31, 112)),
-        img.crop((33, 82, 46, 112)),
-        img.crop((49, 82, 63, 112))
+        img.crop((0, 81, 16, 112)),
+        img.crop((16, 81, 31, 112)),
+        img.crop((33, 81, 46, 112)),
+        img.crop((49, 81, 63, 112))
     ]
     for img in run_images:
         surf = pillow_image_to_surface(img)

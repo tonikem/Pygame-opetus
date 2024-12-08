@@ -22,16 +22,15 @@ class Game:
         # Main character
         self.speed = 1
         self.movement = [False, False]
-        self.hero_cropped_region = (0, 20, 14, 28)
 
-        loaded_hero_img = load_image('Hero.png')
-        hero_subsurface = loaded_hero_img.subsurface((0, 20, 14, 28))
-        hero = pygame.transform.scale(hero_subsurface, (14, 28))
-
+        #hero_cropped_region = (0, 20, 14, 28)
+        #loaded_hero_img = load_image('Hero.png')
+        #hero_subsurface = loaded_hero_img.subsurface(hero_cropped_region )
+        #hero = pygame.transform.scale(hero_subsurface, (14, 28))
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
-            'player': hero,
+            #'player': hero,
             'player/idle': Animation(load_hero_idle_images(), img_dur=6),
             'player/run': Animation(load_hero_run_images(), img_dur=4),
             'player/jump': Animation(load_hero_jump_images())
