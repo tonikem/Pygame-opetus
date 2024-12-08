@@ -30,6 +30,7 @@ class Game:
 
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
+            'background': load_image("background.png"),
             'player': hero
         }
         self.player = PhysicsEntity(self, 'player', (100, 10), (14, 28))
@@ -38,7 +39,8 @@ class Game:
 
     def run(self):
         while True:
-            self.display.fill((10, 100, 100))
+            self.display.blit(self.assets['background'], (0, 0))
+            # self.display.fill((10, 100, 100))
 
             # Kameran kohdistus
             self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 30
