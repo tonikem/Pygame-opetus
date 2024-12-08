@@ -39,24 +39,24 @@ class Game:
 
     def run(self):
         while True:
+            # Renderöidään tausta
             self.display.blit(self.assets['background'], (0, 0))
-            # self.display.fill((10, 100, 100))
+            #self.display.fill((10, 100, 100))
 
             # Kameran kohdistus
             self.scroll[0] += (self.player.rect().centerx - self.display.get_width() / 2 - self.scroll[0]) / 30
             self.scroll[1] += (self.player.rect().centery - self.display.get_height() / 2 - self.scroll[1]) / 30
             render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
 
+            # Tiilien renderöinti
             self.tilemap.render(self.display, offset=render_scroll)
 
+            # Pelaajan renderöinti
             self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
             self.player.render(self.display, offset=render_scroll)
 
-            # tile_images = load_tile_images()
-            # self.display.blit(tile_images[80], (0, 0))
-
-            # print(self.tilemap.tiles_around(self.player.pos))
-            # print(self.tilemap.physics_rects_around(self.player.pos))
+            #print(self.tilemap.tiles_around(self.player.pos))
+            #print(self.tilemap.physics_rects_around(self.player.pos))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -68,6 +68,7 @@ class Game:
                         self.movement[0] = True
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = True
+
                     if event.key == pygame.K_UP:
                         self.player.velocity[1] = JUMP_FORCE
 
@@ -77,7 +78,10 @@ class Game:
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = False
 
+            # Skaalataan pelikenttä
             scale = pygame.transform.scale(self.display, self.screen.get_size())
+
+            # Renderöidään tausta
             self.screen.blit(scale, (0, 0))
             pygame.display.update()
             self.clock.tick(60)
