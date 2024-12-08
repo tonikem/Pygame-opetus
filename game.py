@@ -3,7 +3,7 @@ import pygame
 from Demos.mmapfile_demo import offset
 
 from scripts.entities import PhysicsEntity
-from scripts.utils import load_image, load_tile_images
+from scripts.utils import load_image, load_tile_images, load_hero_idle_images, Animation
 from scripts.tilemap import Tilemap
 
 TILE_SIZE = 28 # 32
@@ -31,7 +31,8 @@ class Game:
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
-            'player': hero
+            'player': hero,
+            'player¨/idle': load_hero_idle_images()
         }
         self.player = PhysicsEntity(self, 'player', (100, 10), (14, 28))
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)

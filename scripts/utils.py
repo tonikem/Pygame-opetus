@@ -15,10 +15,8 @@ def load_image(path):
 
 def load_tile_images(tile_size=16):
     images = []
-    root_path = r"assets/sprites/"
-    img = Image.open(root_path + "World-Tiles.png")
-    empty_img = Image.open(root_path + "tyhjä.png")
-
+    img = Image.open(BASE_IMG_PATH + "World-Tiles.png")
+    empty_img = Image.open(BASE_IMG_PATH + "tyhjä.png")
     for y in range(0, 1392, 16):
         for x in range(0, 288, 16):
             cropped_img = img.crop((x, y, x + 16, y + 16))
@@ -27,6 +25,47 @@ def load_tile_images(tile_size=16):
             surf = pillow_image_to_surface(resized_img)
             if diff.getbbox():
                 images.append(surf)
-
     return images
+
+def load_hero_idle_images():
+    images = []
+    img = Image.open(BASE_IMG_PATH + "Hero.png")
+    idle_images = [
+        img.crop((0, 20, 14, 48)),
+        img.crop((16, 20, 30, 48)),
+        img.crop((32, 20, 46, 48)),
+        img.crop((48, 20, 62, 48)),
+        img.crop((64, 20, 78, 48)),
+        img.crop((80, 20, 94, 48)),
+        img.crop((96, 20, 110, 48)),
+        img.crop((112, 20, 126, 48))
+    ]
+    for img in idle_images:
+        surf = pillow_image_to_surface(img)
+        images.append(surf)
+    return images
+
+
+class Animation:
+    def __init__(self, images, img_dur=5, loop=True):
+        self.images = images
+        self.img_dur = img_dur
+        self.loop = loop
+        self.done = False
+        self.frame = 0
+
+    def copy(self):
+        return Animation(self.images, self.img_dur, self.loop)
+
+    def update(self):
+        if self.loop:
+            self.frame = (self.frame + 1) % (self.img_dur * len(self.images))
+        else:
+            self.frame = min(self.frame + 1, self.img_dur * len(self.images) - 1)
+            if self.frame >= self.img_dur * len(self.images) - 1:
+                self.done = True
+
+    def img(self):
+        return self.images[int(self.frame / self.img_dur)]
+
 
