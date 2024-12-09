@@ -26,7 +26,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         # Main character
-        self.speed = 1
+        self.speed = 2
         self.movement = [False, False]
 
         #hero_cropped_region = (0, 20, 14, 28)
@@ -79,9 +79,9 @@ class Game:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        self.movement[0] = True
+                        self.movement[0] = self.speed
                     if event.key == pygame.K_RIGHT:
-                        self.movement[1] = True
+                        self.movement[1] = self.speed
 
                     if event.key == pygame.K_UP:
                         self.player.velocity[1] = JUMP_FORCE
