@@ -47,12 +47,17 @@ class Editor:
             tile_pos_1 = int((mouse_pos[1] + self.scroll[1]) // self.tilemap.tile_size)
             tile_pos = (tile_pos_0, tile_pos_1)
 
+            # Tiilien asettelu hiiren painikkeilla
             if self.clicking:
                 self.tilemap.tilemap[str(tile_pos_0) + ';' + str(tile_pos_1)] = {
                     'type': 'tiles',
                     'variant': self.tile_variant,
                     'pos': tile_pos
                 }
+            if self.right_clicking:
+                tile_loc = str(tile_pos_0) + ';' + str(tile_pos_1)
+                if tile_loc in self.tilemap.tilemap:
+                    del self.tilemap.tilemap[tile_loc]
 
             self.display.blit(current_tile_img, (5, 5))
 
@@ -67,17 +72,17 @@ class Editor:
                     if event.button == 3:
                         self.right_clicking = True
 
+                if event.type == pygame.MOUSEBUTTONUP:
+                    if event.button == 1:
+                        self.clicking = False
+                    if event.button == 3:
+                        self.right_clicking = False
+
                 if event.type == pygame.MOUSEWHEEL:
                     if event.y == 1:
                         self.tile_variant = (self.tile_variant - 1) % len(self.assets['tiles'])
                     if event.y == -1:
                         self.tile_variant = (self.tile_variant + 1) % len(self.assets['tiles'])
-
-                if event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 1:
-                        self.clicking = False
-                    if event.button == 2:
-                        self.right_clicking = False
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
