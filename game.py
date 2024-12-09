@@ -14,6 +14,12 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Platform Game")
+
+        pygame.mixer.init()
+        pygame.mixer.music.load("assets/music/background.mp3")
+        pygame.mixer.music.set_volume(0.35)
+        pygame.mixer.music.play()
+
         self.screen = pygame.display.set_mode((640, 480))
         self.display = pygame.Surface((320, 240))
 
