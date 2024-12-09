@@ -126,6 +126,9 @@ class Editor:
                     if event.key == pygame.K_g:
                         self.on_grid = not self.on_grid
 
+                    if event.key == pygame.K_s:
+                        self.tilemap.save("map.json")
+
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         self.movement[0] = False

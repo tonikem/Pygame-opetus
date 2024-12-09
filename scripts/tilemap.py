@@ -1,5 +1,5 @@
+import json
 import pygame
-from Demos.mmapfile_demo import offset
 
 NEIGHBOR_OFFSETS = [
     (-1,  0), (-1, -1), ( 0, -1),
@@ -31,6 +31,15 @@ class Tilemap:
             if check_loc in self.tilemap:
                 tiles.append(self.tilemap[check_loc])
         return tiles
+
+    def save(self, path):
+        with open(path, 'w') as file:
+            obj = {
+                'tilemap': self.tilemap,
+                'tile_size': self.tile_size,
+                'offgrid': self.offgrid_tiles
+            }
+            json.dump(obj, file)
 
     def physics_rects_around(self, pos):
         rects = []
