@@ -47,6 +47,8 @@ class Editor:
             tile_pos_1 = int((mouse_pos[1] + self.scroll[1]) // self.tilemap.tile_size)
             tile_pos = (tile_pos_0, tile_pos_1)
 
+            self.display.blit(current_tile_img, (tile_pos_0 * self.tilemap.tile_size - self.scroll[0], tile_pos_1 * self.tilemap.tile_size - self.scroll[1]))
+
             # Tiilien asettelu hiiren painikkeilla
             if self.clicking:
                 self.tilemap.tilemap[str(tile_pos_0) + ';' + str(tile_pos_1)] = {
@@ -59,7 +61,7 @@ class Editor:
                 if tile_loc in self.tilemap.tilemap:
                     del self.tilemap.tilemap[tile_loc]
 
-            self.display.blit(current_tile_img, (5, 5))
+            #self.display.blit(current_tile_img, (5, 5))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
