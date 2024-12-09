@@ -6,10 +6,7 @@ NEIGHBOR_OFFSETS = [
     ( 1, -1), ( 1,  0), ( 0,  0),
     (-1,  1), ( 0,  1), ( 1,  1)
 ]
-
-PHYSICS_TILES = {
-    'tiles'
-}
+PHYSICS_TILES = {'tiles'}
 
 
 class Tilemap:
@@ -18,6 +15,7 @@ class Tilemap:
         self.tile_size = tile_size
         self.tilemap = {}
         self.offgrid_tiles = []
+
         #_range = 2
         #for i in range(_range):
         #    self.tilemap[str(3 + i) + f';{_range}'] = {'type': 'tiles', 'variant': 80, 'pos': (3 + i, _range)}

@@ -29,7 +29,7 @@ class Editor:
         try:
             self.tilemap.load(MAP_NAME)
         except FileNotFoundError:
-            pass
+            pass  # Ohitetaan, jos tiedostoa ei löydy
 
         self.tile_variant = 0
 
