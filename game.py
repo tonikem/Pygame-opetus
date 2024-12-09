@@ -7,7 +7,7 @@ from scripts.utils import *
 from scripts.tilemap import Tilemap
 
 TILE_SIZE = 28 # 32
-JUMP_FORCE = -3
+JUMP_FORCE = -3 # Täytyy olla negatiivinen
 
 
 class Game:
@@ -17,7 +17,7 @@ class Game:
 
         pygame.mixer.init()
         pygame.mixer.music.load("assets/music/background.mp3")
-        pygame.mixer.music.set_volume(0.35)
+        pygame.mixer.music.set_volume(0.15)
         pygame.mixer.music.play()
 
         self.screen = pygame.display.set_mode((640, 480))
@@ -29,18 +29,18 @@ class Game:
         self.speed = 2
         self.movement = [False, False]
 
-        #hero_cropped_region = (0, 20, 14, 28)
-        #loaded_hero_img = load_image('Hero.png')
-        #hero_subsurface = loaded_hero_img.subsurface(hero_cropped_region )
-        #hero = pygame.transform.scale(hero_subsurface, (14, 28))
+        hero_cropped_region = (0, 20, 14, 28)
+        loaded_hero_img = load_image('Hero.png')
+        hero_subsurface = loaded_hero_img.subsurface(hero_cropped_region )
+        hero = pygame.transform.scale(hero_subsurface, (14, 28))
 
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
-            #'player': hero,
+            'player': hero,
             'player/idle': Animation(load_hero_idle_images(), img_dur=6),
             'player/run': Animation(load_hero_run_images(), img_dur=4),
-            'player/jump': Animation(load_hero_jump_images())
+            'player/jump': Animation(load_hero_jump_images(), img_dur=3, loop=False)
         }
 
         self.player = Player(self, (100, 10), (14, 28))
@@ -84,7 +84,7 @@ class Game:
                         self.movement[1] = self.speed
 
                     if event.key == pygame.K_UP:
-                        self.player.velocity[1] = JUMP_FORCE
+                        self.player.jump(JUMP_FORCE)
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:

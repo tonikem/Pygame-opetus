@@ -1,5 +1,4 @@
 import pygame
-from markdown_it.rules_inline import entity
 
 
 class PhysicsEntity:
@@ -23,10 +22,18 @@ class PhysicsEntity:
     def rect(self):
         return pygame.Rect(self.pos[0], self.pos[1], self.size[0], self.size[1])
 
+    def set_action_to_fall(self):
+        self.action = 'player/idle'
+        self.animation = self.game.assets['player/idle'].copy()
+
     def set_action(self, action):
         if action != self.action:
-            self.action = action
-            self.animation = self.game.assets[self.type + '/' + self.action].copy()
+            if action == 'jump':
+                self.action = 'jump'
+                self.animation = self.game.assets['player/jump'].copy()
+            else:
+                self.action = action
+                self.animation = self.game.assets[self.type + '/' + self.action].copy()
 
     def update(self, tilemap, movement=(0, 0)):
         self.collisions = {
@@ -88,7 +95,10 @@ class PhysicsEntity:
 class Player(PhysicsEntity):
     def __init__(self, game, pos, size):
         super().__init__(game, 'player', pos, size)
+        self.NUM_OF_JUMPS = 1
         self.air_time = 0
+        self.jumps = self.NUM_OF_JUMPS
+        self.wall_slide = False
 
     def update(self, tilemap, movement=(0, 0)):
         super().update(tilemap, movement=movement)
@@ -96,6 +106,7 @@ class Player(PhysicsEntity):
 
         if self.collisions['down']:
             self.air_time = 0
+            self.jumps = self.NUM_OF_JUMPS
 
         if self.air_time > 4:
             self.set_action('jump')
@@ -103,5 +114,11 @@ class Player(PhysicsEntity):
             self.set_action('run')
         else:
             self.set_action('idle')
+
+    def jump(self, jump_force):
+        if self.jumps:
+            self.velocity[1] = jump_force
+            self.jumps -= 1
+            self.air_time = 5
 
 
