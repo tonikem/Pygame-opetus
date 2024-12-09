@@ -29,6 +29,7 @@ class Editor:
 
         self.clicking = False
         self.right_clicking = False
+        self.on_grid = True
 
     def run(self):
         while True:
@@ -50,7 +51,12 @@ class Editor:
             tile_pos_1 = int((mouse_pos[1] + self.scroll[1]) // self.tilemap.tile_size)
             tile_pos = (tile_pos_0, tile_pos_1)
 
-            self.display.blit(current_tile_img, (tile_pos_0 * self.tilemap.tile_size - self.scroll[0], tile_pos_1 * self.tilemap.tile_size - self.scroll[1]))
+            if self.on_grid:
+                x = tile_pos_0 * self.tilemap.tile_size - self.scroll[0]
+                y = tile_pos_1 * self.tilemap.tile_size - self.scroll[1]
+                self.display.blit(current_tile_img, (x, y))
+            else:
+                self.display.blit(current_tile_img, mouse_pos)
 
             # Tiilien asettelu hiiren painikkeilla
             if self.clicking:
@@ -94,18 +100,19 @@ class Editor:
                         self.movement[0] = True
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = True
-
                     if event.key == pygame.K_UP:
                         self.movement[2] = True
                     if event.key == pygame.K_DOWN:
                         self.movement[3] = True
+
+                    if event.key == pygame.K_g:
+                        self.on_grid = not self.on_grid
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         self.movement[0] = False
                     if event.key == pygame.K_RIGHT:
                         self.movement[1] = False
-
                     if event.key == pygame.K_UP:
                         self.movement[2] = False
                     if event.key == pygame.K_DOWN:
