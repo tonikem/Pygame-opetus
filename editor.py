@@ -59,7 +59,7 @@ class Editor:
                 self.display.blit(current_tile_img, mouse_pos)
 
             # Tiilien asettelu hiiren painikkeilla
-            if self.clicking:
+            if self.clicking and self.on_grid:
                 self.tilemap.tilemap[str(tile_pos_0) + ';' + str(tile_pos_1)] = {
                     'type': 'tiles',
                     'variant': self.tile_variant,
@@ -80,6 +80,17 @@ class Editor:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         self.clicking = True
+                        if not self.on_grid:
+                            tile = {
+                                'type': 'tile',
+                                'variant': self.tile_variant,
+                                'pos': (
+                                    mouse_pos[0] + self.scroll[0],
+                                    mouse_pos[1] + self.scroll[1]
+                                )
+                            }
+                            self.tilemap.offgrid_tiles.append(tile)
+
                     if event.button == 3:
                         self.right_clicking = True
 
