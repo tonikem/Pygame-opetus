@@ -1,5 +1,6 @@
 import sys
 import pygame
+from Demos.mmapfile_demo import offset
 
 from scripts.utils import *
 from scripts.tilemap import Tilemap
@@ -33,8 +34,25 @@ class Editor:
         while True:
             self.display.fill((0, 0, 0))
 
+            render_scroll = (int(self.scroll[0]), int(self.scroll[1]))
+            self.tilemap.render(self.display, offset=render_scroll)
+
             current_tile_img = self.assets['tiles'][self.tile_variant].copy()
             current_tile_img.set_alpha(100) #  255 täysi
+
+            # Hiiren kohta (skaalattu)
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pos = (mouse_pos[0] / RENDER_SCALE, mouse_pos[1] / RENDER_SCALE)
+            tile_pos_0 = int((mouse_pos[0] + self.scroll[0]) // self.tilemap.tile_size)
+            tile_pos_1 = int((mouse_pos[1] + self.scroll[1]) // self.tilemap.tile_size)
+            tile_pos = (tile_pos_0, tile_pos_1)
+
+            if self.clicking:
+                self.tilemap.tilemap[str(tile_pos_0) + ';' + str(tile_pos_1)] = {
+                    'type': 'tiles',
+                    'variant': self.tile_variant,
+                    'pos': tile_pos
+                }
 
             self.display.blit(current_tile_img, (5, 5))
 
@@ -54,6 +72,12 @@ class Editor:
                         self.tile_variant = (self.tile_variant - 1) % len(self.assets['tiles'])
                     if event.y == -1:
                         self.tile_variant = (self.tile_variant + 1) % len(self.assets['tiles'])
+
+                if event.type == pygame.MOUSEBUTTONUP:
+                    if event.button == 1:
+                        self.clicking = False
+                    if event.button == 2:
+                        self.right_clicking = False
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
