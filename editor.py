@@ -7,6 +7,7 @@ from scripts.tilemap import Tilemap
 
 RENDER_SCALE = 2.0
 TILE_SIZE = 28 # 32
+MAP_NAME = 'map.json'
 
 
 class Editor:
@@ -24,6 +25,11 @@ class Editor:
         self.movement = [False, False, False, False]
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
         self.scroll = [0, 0]
+
+        try:
+            self.tilemap.load(MAP_NAME)
+        except FileNotFoundError:
+            pass
 
         self.tile_variant = 0
 
@@ -127,7 +133,7 @@ class Editor:
                         self.on_grid = not self.on_grid
 
                     if event.key == pygame.K_s:
-                        self.tilemap.save("map.json")
+                        self.tilemap.save(MAP_NAME)
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:

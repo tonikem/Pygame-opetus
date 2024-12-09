@@ -41,6 +41,13 @@ class Tilemap:
             }
             json.dump(obj, file)
 
+    def load(self, path):
+        with open(path, 'r') as file:
+            map_data = json.load(file)
+            self.tilemap = map_data['tilemap']
+            self.tile_size = map_data['tile_size']
+            self.offgrid_tiles = map_data['offgrid']
+
     def physics_rects_around(self, pos):
         rects = []
         for tile in self.tiles_around(pos):
