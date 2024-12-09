@@ -1,7 +1,7 @@
 import sys
 import pygame
-from Demos.mmapfile_demo import offset
 
+from editor import MAP_NAME
 from scripts.entities import PhysicsEntity, Player
 from scripts.utils import *
 from scripts.tilemap import Tilemap
@@ -27,6 +27,7 @@ class Game:
         #loaded_hero_img = load_image('Hero.png')
         #hero_subsurface = loaded_hero_img.subsurface(hero_cropped_region )
         #hero = pygame.transform.scale(hero_subsurface, (14, 28))
+
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
@@ -35,10 +36,13 @@ class Game:
             'player/run': Animation(load_hero_run_images(), img_dur=4),
             'player/jump': Animation(load_hero_jump_images())
         }
-        #print(self.assets)
 
         self.player = Player(self, (100, 10), (14, 28))
         self.tilemap = Tilemap(self, tile_size=TILE_SIZE)
+
+        # Tason lataaminen
+        self.tilemap.load(MAP_NAME)
+
         self.scroll = [0, 0]
 
     def run(self):

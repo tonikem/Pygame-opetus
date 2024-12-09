@@ -1,6 +1,5 @@
 import sys
 import pygame
-from Demos.mmapfile_demo import offset
 
 from scripts.utils import *
 from scripts.tilemap import Tilemap
