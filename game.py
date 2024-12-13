@@ -40,7 +40,7 @@ class Game:
             'player': hero,
             'player/idle': Animation(load_hero_idle_images(), img_dur=6),
             'player/run': Animation(load_hero_run_images(), img_dur=4),
-            'player/jump': Animation(load_hero_jump_images(), img_dur=3, loop=False)
+            'player/jump': Animation(load_hero_jump_images(), img_dur=4, loop=False)
         }
 
         self.player = Player(self, (100, 10), (14, 28))
