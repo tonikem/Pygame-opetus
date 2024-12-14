@@ -47,6 +47,7 @@ class Tilemap:
                 matches[-1]['pos'][1] *= self.tile_size
                 if not keep:
                     del self.tilemap[loc]
+        return matches
 
     def save(self, path):
         with open(path, 'w') as file:

@@ -7,6 +7,7 @@ from scripts.tilemap import Tilemap
 
 RENDER_SCALE = 2.0
 TILE_SIZE = 28
+MAP_NAME = "map.json"
 
 
 class Editor:

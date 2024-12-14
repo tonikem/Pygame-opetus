@@ -30,15 +30,12 @@ def load_tile_images(tile_size=16):
 def load_spawner_images(tile_size=16):
     images = []
     img = Image.open(BASE_IMG_PATH + "Enemies.png")
-    empty_img = Image.open(BASE_IMG_PATH + "tyhjä.png")
-    for y in range(0, 384, 16):
-        for x in range(0, 224, 16):
-            cropped_img = img.crop((x, y, x + 16, y + 16))
-            resized_img = cropped_img.resize((tile_size, tile_size))
-            diff = ImageChops.difference(resized_img, empty_img)
-            surf = pillow_image_to_surface(resized_img)
-            if diff.getbbox():
-                images.append(surf)
+
+    # Vihollisten spritet
+    images.append(pillow_image_to_surface(img.crop((0, 16, 17, 32)).resize((tile_size, tile_size))))
+    images.append(pillow_image_to_surface(img.crop((0, 76, 17, 96)).resize((tile_size, tile_size))))
+    images.append(pillow_image_to_surface(img.crop((0, 196, 16, 209)).resize((tile_size, tile_size))))
+
     return images
 
 def load_hero_idle_images():
