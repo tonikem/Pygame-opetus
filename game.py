@@ -37,7 +37,7 @@ class Game:
         self.assets = {
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
-            'player': hero,
+            'player': hero, # <- Ei animaatiota.
             'player/idle': Animation(load_hero_idle_images(), img_dur=6),
             'player/run': Animation(load_hero_run_images(), img_dur=4),
             'player/jump': Animation(load_hero_jump_images(), img_dur=4, loop=False)
@@ -48,6 +48,12 @@ class Game:
 
         # Tason lataaminen
         self.tilemap.load(MAP_NAME)
+
+        for spawner in self.tilemap.extract([('spawners', 0), ('spawners', 1)]):
+            if spawner['variant'] == 0:
+                self.player.pos = spawner['pos']
+            else:
+                print(spawner['pos'], 'enemy')
 
         self.scroll = [0, 0]
 
