@@ -29,13 +29,11 @@ def load_tile_images(tile_size=16):
 
 def load_spawner_images(tile_size=16):
     images = []
-    img = Image.open(BASE_IMG_PATH + "Enemies.png")
-
-    # Vihollisten spritet
-    images.append(pillow_image_to_surface(img.crop((0, 16, 17, 32)).resize((tile_size, tile_size))))
-    images.append(pillow_image_to_surface(img.crop((0, 76, 17, 96)).resize((tile_size, tile_size))))
-    images.append(pillow_image_to_surface(img.crop((0, 196, 16, 209)).resize((tile_size, tile_size))))
-
+    hero_img = Image.open(BASE_IMG_PATH + "Hero.png")
+    images.append(pillow_image_to_surface(hero_img.crop((0, 17, 14, 48))))
+    enemies_img = Image.open(BASE_IMG_PATH + "Enemies.png")
+    images.append(pillow_image_to_surface(enemies_img.crop((0, 16, 17, 32)).resize((tile_size, tile_size))))
+    images.append(pillow_image_to_surface(enemies_img.crop((0, 196, 16, 209)).resize((tile_size, tile_size))))
     return images
 
 def load_hero_idle_images():

@@ -38,6 +38,7 @@ class Game:
             'tiles': load_tile_images(tile_size=TILE_SIZE),
             'background': load_image("background.png"),
             'player': hero, # <- Ei animaatiota.
+            'spawners': load_spawner_images(tile_size=TILE_SIZE),
             'player/idle': Animation(load_hero_idle_images(), img_dur=6),
             'player/run': Animation(load_hero_run_images(), img_dur=4),
             'player/jump': Animation(load_hero_jump_images(), img_dur=4, loop=False)
